@@ -26,7 +26,8 @@ def tail_call_optimized(g):
     def func(*args, **kwargs):
 
         f = sys._getframe()
-        if f.f_back and f.f_back.f_back and f.f_back.f_back.f_code == f.f_code:
+
+        while f and f.f_code.co_filename == f: #############
             raise TailRecurseException(args, kwargs)
         else:
             while True:
